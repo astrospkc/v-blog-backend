@@ -4,7 +4,7 @@ const JWT_TOKEN = "hello";
 
 const fetchuser = async (req, res, next) => {
   //get the user from jwttoken and add id to req object
-  console.log("fetch User ", req.body);
+
   console.log("headers:", req.headers);
 
   const token = req.headers.authtoken;
