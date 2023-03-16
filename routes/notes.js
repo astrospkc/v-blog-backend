@@ -4,6 +4,19 @@ const fetchuser = require("../middleware/fetchuser");
 const Notes = require("../models/Notes");
 const { body, validationResult } = require("express-validator");
 
+//Route 0: Get all data in home page: GET : /api/notes/getalldata, login not required
+router.get("/getalldata", async (req, res) => {
+  console.log("get all data ", req.body);
+  try {
+    const notes = await Notes.find();
+    console.log("notes: ", notes);
+    res.json(notes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal error occurred");
+  }
+});
+
 // Route 1: Fetch user data  GET: /api/notes/fetchdata , Login required
 router.get("/fetchdata", fetchuser, async (req, res) => {
   console.log("fetch data ", req.body);

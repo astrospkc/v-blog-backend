@@ -1,6 +1,6 @@
 var jwt = require("jsonwebtoken");
 
-const JWT_TOKEN = "hello";
+const JWT_token = process.env.JWT_TOKEN;
 
 const fetchuser = async (req, res, next) => {
   //get the user from jwttoken and add id to req object
@@ -16,7 +16,7 @@ const fetchuser = async (req, res, next) => {
   try {
     console.log("here 2");
     console.log(token);
-    const data = await jwt.verify(token, JWT_TOKEN);
+    const data = await jwt.verify(token, JWT_token);
     console.log(data);
     req.user = data.user;
     next();
