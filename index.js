@@ -12,7 +12,9 @@ app.use(cors());
 // respond with "hello world" when a GET request is made to the homepage
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/notes", require("./routes/notes"));
-app.get("heelo");
+app.get("/", function (req, res) {
+  res.send("Hello");
+});
 
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
