@@ -6,10 +6,10 @@ const { body, validationResult } = require("express-validator");
 
 //Route 0: Get all data in home page: GET : /api/notes/getalldata, login not required
 router.get("/getalldata", async (req, res) => {
-  console.log("get all data ", req.body);
+  // console.log("get all data ", req.body);
   try {
     const notes = await Notes.find();
-    console.log("notes: ", notes);
+    // console.log("notes: ", notes);
     res.json(notes);
   } catch (error) {
     console.error(error.message);
@@ -19,7 +19,7 @@ router.get("/getalldata", async (req, res) => {
 
 // Route 1: Fetch user data  GET: /api/notes/fetchdata , Login required
 router.get("/fetchdata", fetchuser, async (req, res) => {
-  console.log("fetch data ", req.body);
+  // console.log("fetch data ", req.body);
   try {
     const notes = await Notes.find({ user: req.user.id });
     console.log("notes: ", notes);
@@ -43,7 +43,7 @@ router.post(
     ).isLength({ min: 5 }),
   ],
   async (req, res) => {
-    console.log("Inside add note:", req.body);
+    // console.log("Inside add note:", req.body);
     const { title, description, tag } = req.body;
     try {
       // finds the validation errors in this request and wraps them in an object with handy functions
@@ -53,8 +53,8 @@ router.post(
           .status(400, "Place to be filled.")
           .json({ errors: errors.array() });
       }
-      console.log("outside try note :", req.body);
-      console.log("request user", req.user);
+      // console.log("outside try note :", req.body);
+      // console.log("request user", req.user);
       const note = new Notes({
         title,
         description,
@@ -62,7 +62,7 @@ router.post(
         user: req.user.id,
       });
       const savedNote = await note.save();
-      console.log("savedNote", savedNote);
+      // console.log("savedNote", savedNote);
       res.json(savedNote);
     } catch (error) {
       console.error(error.message);
@@ -84,9 +84,9 @@ router.put(
     ).isLength({ min: 5 }),
   ],
   async (req, res) => {
-    console.log("getting the id", req.user.id);
+    // console.log("getting the id", req.user.id);
     const { title, description, tag } = req.body;
-    console.log("update:", req.body);
+    // console.log("update:", req.body);
     try {
       // create new note object
       const newNote = {};
@@ -96,16 +96,16 @@ router.put(
       if (description) {
         newNote.description = description;
       }
-      console.log("newNote:", newNote);
+      // console.log("newNote:", newNote);
 
       // find the note to be updated and update it
-      console.log(req.params.id);
+      // console.log(req.params.id);
       let note = await Notes.findById(req.params.id);
-      console.log("note:", note);
+      // console.log("note:", note);
       if (!note) {
         return res.status(404).send("Not Found");
       }
-      console.log("note user:", note.user);
+      // console.log("note user:", note.user);
       if (note.user.toString() !== req.user.id) {
         return res.status(401).send("Not allowed");
       }
@@ -115,7 +115,7 @@ router.put(
         { $set: newNote },
         { new: true }
       ); // here new:true means if any new content comes it will get updated
-      console.log("editted note:", note);
+      // console.log("editted note:", note);
       res.json({ note });
     } catch (error) {
       console.error(error.message);
@@ -130,7 +130,7 @@ router.delete(
   fetchuser,
 
   async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
       // find the note to be updated and update it
       let note = await Notes.findById(req.params.id);
@@ -143,7 +143,7 @@ router.delete(
       }
 
       note = await Notes.findByIdAndDelete(req.params.id); // here new:true means if any new content comes it will get updated
-      console.log("Deleted note: " + note);
+      // console.log("Deleted note: " + note);
       res.json({ Success: "Note has been deleted.", note: note });
     } catch (error) {
       console.error(error.message);
