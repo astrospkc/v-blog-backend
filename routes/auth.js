@@ -25,7 +25,7 @@ router.post(
     body("password", "Enter password of minimum length 5").isLength({ min: 5 }),
   ],
   async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     let success = false;
     // finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
@@ -34,7 +34,7 @@ router.post(
         .status(400, "Place to be filled.")
         .json({ errors: errors.array() });
     }
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
       let user = await User.findOne({ email: req.body.email });
@@ -88,11 +88,11 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
-      console.log({ user });
+      // console.log({ user });
       if (!user) {
         success = false;
         return res

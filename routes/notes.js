@@ -22,7 +22,7 @@ router.get("/fetchdata", fetchuser, async (req, res) => {
   // console.log("fetch data ", req.body);
   try {
     const notes = await Notes.find({ user: req.user.id });
-    console.log("notes: ", notes);
+    // console.log("notes: ", notes);
     res.json(notes);
   } catch (error) {
     console.error(error.message);
