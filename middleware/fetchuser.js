@@ -16,11 +16,13 @@ const fetchuser = async (req, res, next) => {
   try {
     // console.log("here 2");
     // console.log(token);
+    // console.log(JWT_token);
     const data = await jwt.verify(token, JWT_token);
-    // console.log(data);
+    // console.log("Data after jwt verification : ", data);
     req.user = data.user;
     next();
   } catch (error) {
+    console.log("Error: ", error.message);
     res.status(401).send({ error: "Authenticate using a valid token" });
   }
 };

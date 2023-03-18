@@ -8,7 +8,7 @@ var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchuser");
 
-const JWT_TOKEN = "hello";
+const JWT_TOKEN = process.env.JWT_TOKEN;
 
 //importing user scema
 const User = require("../models/User");

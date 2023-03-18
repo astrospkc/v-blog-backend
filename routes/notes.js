@@ -21,6 +21,7 @@ router.get("/getalldata", async (req, res) => {
 router.get("/fetchdata", fetchuser, async (req, res) => {
   // console.log("fetch data ", req.body);
   try {
+    // console.log("fetching data....");
     const notes = await Notes.find({ user: req.user.id });
     // console.log("notes: ", notes);
     res.json(notes);
