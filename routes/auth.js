@@ -50,10 +50,16 @@ router.post(
       const secPass = await bcrypt.hashSync(req.body.password, salt);
 
       // create a user
+      // user = await User.create({
+      //   name: req.body.name,
+      //   password: secPass,
+      //   email: req.body.email,
+      // });
+
       user = await User.create({
-        name: req.body.name,
-        password: secPass,
-        email: req.body.email,
+        name: "member1",
+        password: "member",
+        email: "member@gmail.com",
       });
 
       const data = {
@@ -73,7 +79,7 @@ router.post(
   }
 );
 
-//Login : POST "/api/auth/login". No login required
+//Login : POST "/api/auth/login".
 router.post(
   "/login",
   [
@@ -89,7 +95,9 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // console.log(req.body);
-    const { email, password } = req.body;
+    const email = "member@gmail.com";
+    const password = "password";
+    // { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
       // console.log({ user });
