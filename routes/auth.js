@@ -18,11 +18,11 @@ router.post(
   "/createuser",
   [
     body("name", "Enter valid name ").isLength({
-      min: 5,
+      min: 1,
     }),
     body("email").isEmail(),
 
-    body("password", "Enter password of minimum length 5").isLength({ min: 5 }),
+    body("password", "Enter password of minimum length 5").isLength({ min: 1 }),
   ],
   async (req, res) => {
     // console.log(req.body);
@@ -79,7 +79,7 @@ router.post(
   [
     body("email", "Enter a valid email").isEmail(),
 
-    body("password", "Enter password of minimum length 5").exists({ min: 5 }),
+    body("password", "Enter password of minimum length 5").exists({ min: 1 }),
   ],
   async (req, res) => {
     let success = false;
