@@ -7,8 +7,8 @@ const fetchuser = async (req, res, next) => {
 
   console.log("headers:", req.headers);
 
-  const token = req.headers.authtoken;
-  // const token = req.headers["authorization"]?.split(" ")[1];
+  // const token = req.headers.authtoken;
+  const token = req.headers["Authorization"]?.split(" ")[1];
 
   console.log("token", token);
   if (!token) {
@@ -17,7 +17,7 @@ const fetchuser = async (req, res, next) => {
 
   try {
     const data = await jwt.verify(token, JWT_secret);
-    // console.log("Data after jwt verification : ", data);
+    console.log("Data after jwt verification : ", data);
     req.user = data.user;
     next();
   } catch (error) {

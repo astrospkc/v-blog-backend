@@ -64,7 +64,7 @@ router.post(
         user: req.user.id,
       });
       const savedNote = await note.save();
-      // console.log("savedNote", savedNote);
+      console.log("savedNote", savedNote);
       res.json(savedNote);
     } catch (error) {
       console.error(error.message);
