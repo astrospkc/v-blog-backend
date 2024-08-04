@@ -44,7 +44,8 @@ router.post(
     ).isLength({ min: 5 }),
   ],
   async (req, res) => {
-    // console.log("Inside add note:", req.body);
+    console.log("user id: ", req.user.id, req.user._id);
+    console.log("Inside add note:", req.body);
     const { title, description, tag } = req.body;
     try {
       // finds the validation errors in this request and wraps them in an object with handy functions
@@ -54,8 +55,8 @@ router.post(
           .status(400, "Place to be filled.")
           .json({ errors: errors.array() });
       }
-      // console.log("outside try note :", req.body);
-      // console.log("request user", req.user);
+      console.log("outside try note :", req.body);
+      console.log("request user", req.user);
       const note = new Notes({
         title,
         description,

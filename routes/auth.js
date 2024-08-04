@@ -9,7 +9,7 @@ var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchuser");
 
-const JWT_TOKEN = process.env.JWT_TOKEN;
+const JWT_SECRET = process.env.JWT_TOKEN;
 
 //importing user scema
 const User = require("../models/User");
@@ -63,7 +63,7 @@ router.post(
         },
       };
 
-      const authtoken = jwt.sign(data, JWT_TOKEN);
+      const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
 
       res.json({ success, authtoken });
@@ -120,8 +120,9 @@ router.post(
         },
       };
 
-      const authtoken = jwt.sign(data, JWT_TOKEN);
+      const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
+      console.log("req.headers: ", req.headers);
 
       res.json({ success, authtoken });
       // }
@@ -133,11 +134,23 @@ router.post(
 );
 
 // ROUTE 3: get user details, POST : "api/auth/getuser" Login required
-router.post("/getuser", fetchuser, async (req, res) => {
+router.get("/getuser/:userid", fetchuser, async (req, res) => {
   try {
-    const userId = req.user.id;
-    const user = await User.findById(userId).select("-password");
+    // const userId = req.user._id;
+    const userId = req.params.userid;
+    const user = await User.findById(userId).select("password");
     res.send(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal error occurred");
+  }
+});
+
+router.get("/getalluser", async (req, res) => {
+  try {
+    const users = await User.find();
+    console.log("user: ", users);
+    res.json(users);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal error occurred");

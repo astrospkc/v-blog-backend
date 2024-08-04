@@ -1,4 +1,4 @@
 module.exports = {
-  defaultEmail: "member@gmail.com",
-  defaultPassword: "member",
+  defaultEmail: "Durdy@gmail.com",
+  defaultPassword: "34873akjhfk@",
 };
