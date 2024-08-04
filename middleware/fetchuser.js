@@ -7,12 +7,12 @@ const fetchuser = async (req, res, next) => {
 
   console.log("headers:", req.headers);
 
-  // const token = req.headers.authtoken;
-  const token = req.headers["authorization"]?.split(" ")[1];
+  const token = req.headers.authtoken;
+  // const token = req.headers["authorization"]?.split(" ")[1];
 
   console.log("token", token);
   if (!token) {
-    res.status(401).send({ error: "Authenticate using a valid token" });
+    res.status(401).send({ error: "Authenticate using a valid token initial" });
   }
 
   try {
