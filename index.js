@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:5000", "https://backend-z7vs.onrender.com"],
+    origin: ["http://localhost:5174", "https://v-blog-gold.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
