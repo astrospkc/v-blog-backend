@@ -1,21 +1,26 @@
 var jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const JWT_secret = process.env.JWT_TOKEN;
 
 const fetchuser = async (req, res, next) => {
   //get the user from jwttoken and add id to req object
 
-  console.log("headers:", req.headers);
+  console.log("headers:", req, req.headers);
 
   // const token = req.headers.authtoken;
-  const token = req.headers["Authorization"]?.split(" ")[1];
+  const token = req.headers["authorization"]?.split(" ")[1];
+  console.log("token:", token);
 
-  console.log("token", token);
-  if (!token) {
-    res.status(401).send({ error: "Authenticate using a valid token initial" });
-  }
+  // console.log("token in fetchuser", token);
 
   try {
+    if (!token) {
+      res
+        .status(401)
+        .send({ error: "Authenticate using a valid token initial" });
+    }
     const data = await jwt.verify(token, JWT_secret);
     console.log("Data after jwt verification : ", data);
     req.user = data.user;

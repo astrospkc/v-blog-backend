@@ -123,6 +123,7 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
       console.log("req.headers: ", req.headers);
+      console.log(success, authtoken);
 
       res.json({ success, authtoken });
       // }
