@@ -22,7 +22,7 @@ router.get("/fetchdata", fetchuser, async (req, res) => {
   // console.log("fetch data ", req.body);
   try {
     // console.log("fetching data....");
-    const notes = await Notes.find({ user: req.user.id });
+    const notes = await Notes.find({ user: req.user._id });
     // console.log("notes: ", notes);
     res.json(notes);
   } catch (error) {
@@ -108,7 +108,7 @@ router.put(
         return res.status(404).send("Not Found");
       }
       // console.log("note user:", note.user);
-      if (note.user.toString() !== req.user.id) {
+      if (note.user.toString() !== req.user._id) {
         return res.status(401).send("Not allowed");
       }
 
@@ -140,7 +140,7 @@ router.delete(
         return res.status(404).send("Not Found");
       }
 
-      if (note.user.toString() !== req.user.id) {
+      if (note.user.toString() !== req.user._id) {
         return res.status(401).send("Not allowed");
       }
 
