@@ -7,7 +7,14 @@ connectToMongo();
 const app = express();
 const port = 5000;
 app.use(express.json());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: ["http://localhost:5000", "https://backend-z7vs.onrender.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // respond with "hello world" when a GET request is made to the homepage
 app.use("/api/auth", require("./routes/auth"));
