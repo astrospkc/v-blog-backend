@@ -61,7 +61,7 @@ router.post(
         title,
         description,
         tag,
-        user: req.user.id,
+        user: req.user._id,
       });
       const savedNote = await note.save();
       console.log("savedNote", savedNote);
